@@ -1,0 +1,72 @@
+﻿<html>
+<head>
+	<title>Vinegar.js Translate Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	<!--List Of ISO Language Definitions: http://msdn.microsoft.com/en-us/library/ms533052%28v=vs.85%29.aspx -->
+	var lang = navigator.language || navigator.userLanguage;
+	lang = lang.replace("-","").toLowerCase();
+	var langs = {
+		enus: [{
+			Hello: "Hello",
+			Welcome: "Welcome",
+			To: "To",
+			Vinegar: "Vinegar",
+			".js": ".js"
+		}],
+
+		engb: [{
+			Hello: "Good Day",
+			Welcome: "And Greetings",
+			To: "From",
+			Vinegar: "Vinegar",
+			".js": ".js"
+		}],
+
+		en: this.enus,
+
+		fr: [{
+			Hello: "Bonjour",
+			Welcome: "Binevenue",
+			To: "Pour",
+			Vinegar: "Vinaigre",
+			".js": ".js"
+		}],
+
+		frbe: this.fr,
+		frch: this.fr,
+		frca: this.fr,
+		frlu: this.fr,
+
+		zh: [{
+			Hello: "您好",
+			Welcome: "欢迎",
+			To: "光临",
+			Vinegar: "醋",
+			".js": ".js"
+		}],
+
+		zhtw: this.zh,
+		zhhk: this.zh,
+		zhsg: this.zh,
+		zhcn: this.zh
+
+
+	};
+
+	if (typeof langs[lang] =="undefined") {
+		document.write("No translation available for "+ lang +". Default to US English.");
+		lang = "enus";
+	}
+	Vinegar.template(document,langs[lang]);
+}
+</script>
+<p>
+<{Hello}> <{Welcome}> <{To}> <{Vinegar}><{.js}>
+</p>
+</body>
+</html>

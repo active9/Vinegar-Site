@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>Vinegar.js Loop Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [{
+		"Vinegar": "Vinegar",
+		"Villian": "Hero",
+		"Bucket": "Contact",
+		"contacts": [
+			{
+			"firstName": "Charles",
+			"lastName": "Exavior",
+			"email": "prof@xmen.com",
+			"phone": "1-999-876-5309"
+			},
+			{
+			"firstName": "Leonardo",
+			"lastName": "Divinci",
+			"email": "pro@artist.com",
+			"phone": "1-333-943-8543"
+			},
+			{
+			"firstName": "Mother",
+			"lastName": "Thersea",
+			"email": "mother@compassion.com",
+			"phone": "1-333-411-4444"
+			},
+			{
+			"firstName": "Martha",
+			"lastName": "Washington",
+			"email": "martha@washington.com",
+			"phone": "NA"
+			}
+		]
+	}];
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p><{Vinegar}> also supports template loops!</p}>
+<p>
+<h3><{Villian}> <{Bucket}> List</h3>
+<ul>
+<{#contacts}>
+	<li><{firstName}> <{lastName}> <{email}> <{phone}></li>
+<{/contacts}>
+</ul>
+</p>
+</body>
+</html>

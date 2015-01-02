@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>Vinegar.js Eval Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [];
+	templatedata.push({
+		MY_SCRIPT: (function() {
+			alert("Neato!");
+			return "Vinegar is cool again!";
+		})
+	});
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p>
+<{MY_SCRIPT}>
+</p>
+</body>
+</html>

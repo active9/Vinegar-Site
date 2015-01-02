@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Vinegar.js Simple Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [];
+	templatedata.push({
+		TEST_REPLACE: "Hello World",
+		JOHN: "Frank",
+		JANE: "Jessica",
+		PLACE: "Javascript Summit"
+	});
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p>
+<{TEST_REPLACE}>
+</p>
+<p>
+<{JOHN}> met <{JANE}> at the <{PLACE}>
+</p>
+</body>
+</html>

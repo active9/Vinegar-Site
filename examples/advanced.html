@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>Vinegar.js Advanced Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [];
+	templatedata.push({
+		"VINEGAR": {
+			"<{Vinegarjs}>": 
+			{
+				"Vinegarjs": "<{Stuff}>",
+				"Stuff": (function() {
+					return "<marquee><{Them}> are <{Obsolete}> <{Anymore}></marquee>";
+				})
+			}
+		},
+		"Obsolete": "deprecated",
+		"Anymore": "in HTML5 now due to the MutationObserver Event.",
+		"Them": "<{These}>",
+		"These": "Marquee elements"
+	});
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p>
+<{VINEGAR}><br />
+</p>
+</body>
+</html>

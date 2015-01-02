@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]> <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  dir="ltr" lang="en-US"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<!-- Set the viewport width to device width for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="author" content="Active 9 LLC.">
+<meta name="Description" content="Vinegar.JS" />
+<title>Vinegar.JS</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="css/contact.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="css/flexslider.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen" />
+<!--[if gt IE 8]><!--><link href="css/retina-responsive.css" rel="stylesheet" type="text/css" media="screen" /><!--<![endif]-->
+<!--[if !IE]> <link href="css/retina-responsive.css" rel="stylesheet" type="text/css" media="screen" /> <![endif]-->
+<!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css" media="screen" /> <![endif]-->
+<link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,600,800' rel='stylesheet' type='text/css' />
+</head>
+<body class="classic">
+<div id="wrap">
+<{HEADER}>
+  <div id="content">
+  <{CONTENT}>
+  </div>
+  <!-- end content -->
+</div>
+<!-- end wrap -->
+<footer>
+<{FOOTER}>
+</footer>
+<script src="js/require.js" type="text/javascript"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var templatedata = [];
+	var slide_number = Math.ceil(Math.random()*10);
+	if (slide_number<10) {
+		slide_number = "0"+ slide_number;
+	}
+	templatedata.push({
+		SLIDE_NUMBER: slide_number
+	});
+	require(
+		['js/modernizr.js',
+		 'js/jquery-1.9.1.min.js',
+		 'js/loadxmldoc.js',
+		 'Vinegar.js'], function(util) {
+			loadXMLDoc("templates/header.json",JSON.parse(JSON.stringify([{"null":"null"}])));
+			loadXMLDoc("templates/documentation.json",templatedata);
+			loadXMLDoc("templates/footer.json",JSON.parse(JSON.stringify([{"null":"null"}])));
+			require(['js/jquery-easing-1.3.js',
+		 		'js/retina.js',
+		 		'js/input.fields.js',
+		 		'js/responsive-nav.js',
+		 		'js/jquery.flexslider-min.js',
+		 		'js/jquery.fancybox.pack.js',
+		 		'js/image-hover.js',
+		 		'js/navi-slidedown.js'], function(util) {
+					$("#wrap").show();
+				}
+			);
+		}
+	);
+}
+</script>
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</body>
+</html>

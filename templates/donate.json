@@ -1,0 +1,5 @@
+[
+    {
+        "CONTENT": " <div class=\"container clearfix\"> <div class=\"col1-3 white\"> <h2><img src=\"images\/Vinegar_Small.png\"><\/img> Vinegar.js<\/h2> <div class=\"badge_div\"><p class=\"badge_text\">A Simple Robust<\/p> <p class=\"badge_js\">Javascript<\/p><p class=\"badge_te\">&lt;{Template}&gt; Engine<\/p></div> <div class=\"grey-area clearfix\"> <h3>Donate</h3> <\/div><\/div> <div class=\"col3-3 home element\"> <div class=\"images\"> <img src=\"images\/post01.png\" alt=\"\"\/><div class=\"caption banner_caption\"><h2>1.0 RC2<\/h2><div class=clear><\/div><p>Vinegar.JS - A Simple Robust Javascript Template Engine</p><\/div> <div class=\"banner\"><h1 class=\"banner_text\">Donate<\/h1></div><\/div> <div class=white-bottom> <p class=big>Donating is a great way to show your love for Vinegar.JS. Here is how you can donate.<\/p><br \/> <p><ul><li>Code - Show your support by contributing to the github repo. Just Fork & Pull.</li><li>Flattr - Microdonate to Vinegar.JS</li></ul> </p> <\/div> <\/div>"
+	}
+]

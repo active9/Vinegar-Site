@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>Vinegar.js Nesting Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [];
+	templatedata.push({
+		"VINEGAR": {
+			"<{Vinegarjs}>": 
+			{
+				"Vinegarjs": "<{Stuff}>",
+				"Stuff": "Stuff"
+			}
+		}
+	});
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p>
+<{VINEGAR}> is what things are made of.<br /><br />
+The above example demonstrates advanced higharchy based object replacement.
+</p>
+</body>
+</html>

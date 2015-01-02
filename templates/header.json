@@ -1,0 +1,5 @@
+[
+    {
+        "HEADER": "<header id=\"wrapper\"> <div class=\"container clearfix\"> <h1 id=\"logo\"><a href=\"index.html\">Vinegar.JS<\/a><\/h1> <div id=\"nav-button\"> <span class=\"nav-bar\"><\/span> <span class=\"nav-bar\"><\/span> <span class=\"nav-bar\"><\/span> <\/div> <div id=\"options\" class=\"clearfix\"> <ul id=\"main-menu\"> <li><a href=\"index.html\">Home<\/a><\/li> <li><a href=\"about.html\">About<\/a><\/li> <li><a href=\"documentation.html\" class=\"dead-link\">Docs<\/a> <ul class=\"other\"> <li><a href=\"documentation.html#Introduction\">Introduction<\/a><\/li> <li><a href=\"documentation.html#Getting_Started\">Getting Started<\/a><\/li> <li><a href=\"documentation.html#Functions\">Functions<\/a><\/li> <li><a href=\"examples.html\">Examples<\/a><\/li> <\/ul> <\/li> <li><a href=\"donate.html\">Donate<\/a><\/li> <li><a href=\"https:\/\/github.com\/active9\/Vinegar\">Source<\/a><\/li> <\/ul> <\/div> <\/div> <div class=\"more-info clearfix\"><a href=\"https:\/\/github.com\/active9\/Vinegar\/archive\/master.zip\">DOWNLOAD<\/a><\/div> <\/header>"
+    }
+]

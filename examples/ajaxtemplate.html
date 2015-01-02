@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Vinegar.js AJAX Example</title>
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+/*
+ * loadXMLDoc()
+ * adapted from http://www.w3schools.com/ajax/tryit.asp?filename=tryajax_first
+ *
+ */
+var templatedata;
+function loadXMLDoc(url) {
+	var xmlhttp;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && (xmlhttp.status==200 || xmlhttp.status==0)) {
+			templatedata = JSON.parse(xmlhttp.responseText);
+			Vinegar.template(document,templatedata);
+		}
+	}
+	xmlhttp.open("GET","ajaxtemplate.json",true);
+	xmlhttp.send();
+}
+
+window.onload=function(){
+	loadXMLDoc("template.json");
+}
+</script>
+<{TEMPLATE}>
+</body>
+</html>

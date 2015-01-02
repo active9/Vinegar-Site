@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Vinegar.js Basic Example</title>
+
+	<script src="../Vinegar.js"></script>
+</head>
+<body>
+<script>
+window.onload=function(){
+	var templatedata = [];
+	templatedata.push({
+		VINEGAR: "<{Vinegarjs}>",
+		Vinegarjs: "Vinegar",
+		PIECE_OF_CANDY: "<{piece_of_candy}>",
+		piece_of_candy: "<{candy}>",
+		candy: "object"
+	});
+	Vinegar.template(document,templatedata);
+}
+</script>
+<p>
+<{VINEGAR}> ferments json data via HTML metabolization.<br /><br />
+The process is fast and can render content on the fly.<br />
+You simply pass an object to the template engine with a JSON data array for
+the replacement objects.<br /><br />
+Object replacement is higharchial meaning, you can replace a Vinegar <{PIECE_OF_CANDY}>
+with another <{piece_of_candy}> with another <{candy}> and so on.
+</p>
+</body>
+</html>
