@@ -1,7 +1,7 @@
 /*
  * Vinegar - Javascript <{Template Engine}>
- * @Copyright 2014 Active9 LLC.
- * VERSION: 1.0 RC2
+ * @Copyright 2015 Active9 LLC.
+ * VERSION: 1.0.1
  * SOURCE: https://github.com/active9/Vinegar/
  * LICENSE: MIT
  *
@@ -30,7 +30,6 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
  */
-
 var Vinegar = {
 
 	/*
@@ -42,9 +41,13 @@ var Vinegar = {
 	CH3enc: "&lt;{",
 	COOH: "}>",
 	COOHenc: "}&gt;",
-	
+
 	/*
-	 * delimiter - sets the syntax dekunuterfor replacement
+	 * DELIMITER - sets the syntax delimiter for replacement
+	 *
+	 * @STRING a - opening delimiter string
+	 * @STRING b - closing delimiter string
+	 *
 	 */
 	delimiter: function(a,b) {
 		this.CH3 = a;
@@ -54,12 +57,17 @@ var Vinegar = {
 	},
 
 	/*
-	 * templateuri - location of the template file with relative path
-	 * datajson - array of data to pass to the template
+	 * TEMPLATE - defined the template data to use as a base for replacement
+	 *
+	 * @STRING templateuri - location of the template file with relative path
+	 * @JSON datajson - json array of data to pass to the template
 	 *
 	 */
 	template: function(obj,datajson) {
 		var templatedata;
+		if (typeof document === "undefined") {
+			var document = "";
+		}
 
 		/*
 		 * Document Body
@@ -67,15 +75,15 @@ var Vinegar = {
 		if (obj == document.body || obj == document) {
 			templatedata = document.getElementsByTagName("body").innerHTML || document.body.innerHTML;
 			obj = document.getElementsByTagName("body") || document.body;
-			this.ferment(obj,templatedata,datajson);
+			return this.ferment(obj,templatedata,datajson);
 
 		/*
 		 * Object Array
 		 */
 		} else if (obj.length>1) {
 			for (var i=0;i<obj.length;i++) {
-				templatedata = obj[i].innerHTML;
-				this.ferment(obj[i],templatedata,datajson);
+				templatedata = obj[i].innerHTML || obj;
+				return this.ferment(obj[i],templatedata,datajson);
 			}
 
 		/*
@@ -83,18 +91,21 @@ var Vinegar = {
 		 */
 		} else {
 			templatedata = obj.innerHTML;
-			this.ferment(obj,templatedata,datajson);
+			return this.ferment(obj,templatedata,datajson);
 		}
 	},
 
-	/* FERMENT - our metabolic process
+	/*
+	 * FERMENT - our metabolic process
 	 *
+	 * obj - the feremented object
 	 * templatedata - the template data
 	 * datajson - array of data to pass to the template
 	 *
 	 */
 	ferment: function(obj,templatedata,datajson) {
 		if (typeof templatedata != "string" || typeof datajson != "object") return;
+		if (typeof obj == "string") { obj = [obj] }
 		if (typeof obj != "object") return;
 		if (templatedata.match(this.CH3+"*", "g") || templatedata.match(this.CH3enc+"*", "g")) {
 			templatedata = this.metabolize(obj, templatedata, datajson);
@@ -102,7 +113,12 @@ var Vinegar = {
 		return templatedata;
 	},
 
-	/* METABOLIZE - our metabolistic transformation
+	/*
+	 * METABOLIZE - our metabolistic transformation
+	 * 
+	 * obje - the fermented object
+	 * templatedata - the template data
+	 * datajson - array of data to pass to the template
 	 *
 	 */
 	metabolize: function(obje,templatedata,datajson) {
@@ -151,9 +167,17 @@ var Vinegar = {
 
 	/*
 	 * ETHANOL - mix our templatedata and object
+	 *
+	 * obj - the fermented object
+	 * templatedata - the template data
 	 */
 	ethanol: function(obj,templatedata) {
-		if (obj == document.getElementsByTagName("body") || obj == document.body) {
+		if (typeof document == "undefined") {
+			var document = "node";
+		}
+		if (document=="node") {
+			obj = templatedata;
+		} else if (obj == document.getElementsByTagName("body") || obj == document.body) {
 			document.body.innerHTML = templatedata;
 		} else if (obj == null) {
 			// Blank Output
@@ -165,6 +189,11 @@ var Vinegar = {
 
 	/*
 	 * BOND - replace our data bonds
+	 *
+	 * text - the text to be bonded with
+	 * replace - the replacement regular expression to replace text
+	 * with_this - the data that is replacing the origional data match
+	 *
 	 */
 	bond: function(text,replace,with_this) {
 		return text.replace(new RegExp(replace, 'g'), with_this);
@@ -172,6 +201,11 @@ var Vinegar = {
 
 	/*
 	 * PAIR - replaces content on our metabolic pairs
+	 *
+	 * templatedata - the template data
+	 * key - the object key to pair
+	 * first - the object key to place first
+	 *
 	 */
 	pair: function(templatedata, key, first) {
 		templatedata = this.bond(templatedata, this.CH3enc+key+this.COOHenc, first);
@@ -182,7 +216,48 @@ var Vinegar = {
 	},
 
 	/*
+	 * NODE - this is the template render tie in for nodeJS
+	 *
+	 */
+	node: function(tpl,res,td) {
+		var fs = require("fs");
+		fs.readFile(tpl, "utf8", function(error, data) {
+			if (error) {
+				if (res=="") {
+					res.send(error);
+				} else {
+					return error;
+				}
+			} else {
+				if (res=="") {
+					return Vinegar.template(data,td);
+				} else {
+					res.send(Vinegar.template(data,td));
+				}
+			}
+		});
+	},
+
+	/*
+	 * EXPRESS - this is the template render tie in for node express.js
+	 *
+	 */
+	express: function(tpl,res,td) {
+		var fs = require("fs");
+		fs.readFile(tpl, "utf8", function(error, data) {
+			if (error) {
+				res.send(error);
+			} else {
+				res.send(Vinegar.template(data,td));
+			}
+		});
+	},
+
+	/*
 	 * SIZE - find an objects size
+	 *
+	 * obj - the object to find the length of
+	 *
 	 */
 	size: function(obj) {
 		var s = 0;
@@ -194,6 +269,9 @@ var Vinegar = {
 
 	/*
 	 * CHARS - encodes a string to html chars
+	 *
+	 * s - a string
+	 *
 	 */
 	chars: function(s) {
 		var el = document.createElement("div");
@@ -202,4 +280,8 @@ var Vinegar = {
 		return s;
 	}
 
+}
+
+if (typeof module !="undefined") {
+	module.exports = Vinegar;
 }
