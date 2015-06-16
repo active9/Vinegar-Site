@@ -1,7 +1,7 @@
 /*
  * Vinegar - Javascript <{Template Engine}>
  * @Copyright 2015 Active9 LLC.
- * VERSION: 1.0.1
+ * VERSION: 1.0.2
  * SOURCE: https://github.com/active9/Vinegar/
  * LICENSE: MIT
  *
@@ -30,6 +30,13 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
  */
+if (typeof window =="undefined") {
+  var window = {
+	"document": {
+		"body": null
+	}
+  }
+}
 var Vinegar = {
 
 	/*
@@ -65,17 +72,13 @@ var Vinegar = {
 	 */
 	template: function(obj,datajson) {
 		var templatedata;
-		if (typeof document === "undefined") {
-			var document = "";
-		}
 
 		/*
 		 * Document Body
 		 */
-		if (obj == document.body || obj == document) {
-			templatedata = document.getElementsByTagName("body").innerHTML || document.body.innerHTML;
-			obj = document.getElementsByTagName("body") || document.body;
-			return this.ferment(obj,templatedata,datajson);
+		if (obj == window.document.body || obj == window.document) {
+			templatedata = obj.getElementsByTagName("body").innerHTML || obj.body.innerHTML;
+			return this.ferment(obj.getElementsByTagName("body") || obj.body,templatedata,datajson);
 
 		/*
 		 * Object Array
@@ -172,8 +175,15 @@ var Vinegar = {
 	 * templatedata - the template data
 	 */
 	ethanol: function(obj,templatedata) {
-		if (typeof document == "undefined") {
-			var document = "node";
+		var document = null;
+		if (typeof window != "undefined") {
+			document = window.document;
+		}
+		if (typeof window.document == "undefined") {
+			document = "node";
+		}
+		if (typeof document.getElementsByTagName == "undefined") {
+			document = "node";
 		}
 		if (document=="node") {
 			obj = templatedata;
